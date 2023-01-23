@@ -4,43 +4,43 @@ import Layout from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Date from "../components/date";
-
-function Header({ title }) {
-	return (
-		<h1>
-			<Link href="/posts/first-post">this page!</Link>
-		</h1>
-	);
-}
+import { GetStaticProps } from "next";
 
 // Use it to get uninteractable data
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
 	const allPostsData = getSortedPostsData();
 	return {
 		props: {
 			allPostsData,
 		},
 	};
-}
+};
 
 /*
 // Use it for getting data on request / when the user does something
 export async function getServerSideProps(context) {
-  return {
-    props: {
-      // props for your component
-    },
-  };
+	return {
+		props: {
+			// props for your component
+		},
+	};
 }
 */
 
-export default function HomePage({ allPostsData }) {
+export default function HomePage({
+	allPostsData,
+}: {
+	allPostsData: {
+		date: string;
+		title: string;
+		id: string;
+	}[];
+}) {
 	return (
 		<Layout home>
 			<Head>
 				<title>Destroyer App</title>
 			</Head>
-			<Header />
 
 			<section className={utilStyles.headingMd}>
 				<p>Gorilla stronk</p>
